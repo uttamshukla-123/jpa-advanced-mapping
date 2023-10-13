@@ -11,49 +11,79 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class CrudMappingsApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(CrudMappingsApplication.class, args);
+        SpringApplication.run(CrudMappingsApplication.class, args);
 
-	}
-	@Bean
-	public CommandLineRunner commandLineRunner(AppDao appDao){
-		return  runner -> {
-			// createInsturctor(appDao);
-			
-			// findInstructor(appDao);
+    }
 
-			   deleteInstructorById(appDao);
-			
+    @Bean
+    public CommandLineRunner commandLineRunner(AppDao appDao) {
+        return runner -> {
 
-		};
-	}
+            // createInsturctor(appDao);
 
-	private void deleteInstructorById(AppDao appDao) {
+            // findInstructor(appDao);
 
-		int id=1;
+            // deleteInstructorById(appDao);
 
-		appDao.deleteInstructorById(id);
+            // findInstructorDetailById(appDao);
 
-		System.out.println("Done");
-	}
+             deleteInstructorDetailById(appDao);
 
-	private void findInstructor(AppDao appDao) {
 
-		int id=1;
+        };
+    }
 
-		Instructor teInstructor=appDao.findInstructorById(id);
+    private void deleteInstructorDetailById(AppDao appDao) {
 
-		System.out.println("Instructor Data --------"+teInstructor);
-	}
+        int id = 3;
 
-	private void createInsturctor(AppDao appDao) {
+        System.out.println("Deleting Instructor Detail By Id" + id);
 
-		//create the instructor
-		Instructor instructor= new Instructor("Chad","Derby","chad@gmail.com");
-		InstructorDetail instructorDetail=new InstructorDetail("https://www.youtube.com/","cricket");
-		instructor.setInstructorDetail(instructorDetail);
-		appDao.save(instructor);
-	}
+        appDao.deleteInstructorDetailById(id);
+
+        System.out.println("Done");
+    }
+
+    private void findInstructorDetailById(AppDao appDao) {
+
+        //get the instructor detail object
+        int theId = 2;
+        InstructorDetail tempInstructorDetail = appDao.findInstructorDetailById(theId);
+
+        //print the instructor detail
+        System.out.println("tempInstructorDetail" + tempInstructorDetail);
+
+        //print the associated instructor
+        System.out.println("the assosiated instructor" + tempInstructorDetail.getInstructor());
+    }
+
+    private void deleteInstructorById(AppDao appDao) {
+
+        int id = 1;
+
+        appDao.deleteInstructorById(id);
+
+        System.out.println("Done");
+    }
+
+    private void findInstructor(AppDao appDao) {
+
+        int id = 1;
+
+        Instructor teInstructor = appDao.findInstructorById(id);
+
+        System.out.println("Instructor Data --------" + teInstructor);
+    }
+
+    private void createInsturctor(AppDao appDao) {
+
+        //create the instructor
+        Instructor instructor = new Instructor("Ravi", "Sharma", "ravi@gmail.com");
+        InstructorDetail instructorDetail = new InstructorDetail("https://www.youtube.com/gsdgfds", "football");
+        instructor.setInstructorDetail(instructorDetail);
+        appDao.save(instructor);
+    }
 
 }
